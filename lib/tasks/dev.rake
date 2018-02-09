@@ -1,4 +1,16 @@
 namespace :dev do
+
+  task fill_image: :environment do
+    Restaurant.all.each do |r|
+      rand = rand(1..11)
+      f = File.open("#{Rails.root}/public/restaurant-image/#{rand}.jpg")
+      r.image = f
+      r.save!
+      puts "#{r.id} ==> image #{rand}"
+    end
+  end
+
+
   task fake_restaurant: :environment do
     Restaurant.destroy_all
 
